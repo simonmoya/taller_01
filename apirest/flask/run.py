@@ -36,36 +36,46 @@ def execute_query(query, engine):
 #Genera la lista de registros de cada tabla de acuerdo a la tabla config_table                                
 @app.route("/load", methods=['POST'])
 def LoadData():
-    for tablename in tables:
-        file = './'+tablename+'.csv'
-        df = pd.read_csv(str(file), lineterminator='\n')    
-        engine = Connect_Pg()
-        df.to_sql(tablename, engine, if_exists='append', index=False)
+    url="https://raw.githubusercontent.com/tensorflow/tfx/master/tfx/examples/penguin/data/labelled/penguins_processed.csv"
+    df = pd.read_csv(url, lineterminator='\n')    
+    engine = Connect_Pg()
+    tablename = 'penguins_size'
+    df.to_sql(tablename, engine, if_exists='append', index=False)
     print("Success Load Tables")
 
 @app.route("/delete", methods=['POST'])
-def DropData():
+def DeleteData():
     engine = Connect_Pg()
-    for tablename in tables:
-        query = 'Truncate '+tablename
-        execute_query(query, engine)
+    query = 'Truncate penguins_size'
+    execute_query(query, engine)
     print("Success Truncate Tables")
 
-@app.route("/train", methods=['POST'])
+@app.route("/modeltrain", methods=['POST'])
 def ModelTrain():
     engine = Connect_Pg()
     conn_pgsql = engine.connect()
     Sql = "Select * from penguins_size"
     df_penguin = pd.read_sql_query(Sql, conn_pgsql)
-    imputer = SimpleImputer(strategy='most_frequent')
-    df_penguin.iloc[:,:] = imputer.fit_transform(df_penguin)
-    features = ['culmen_length_mm', 'culmen_depth_mm'] 
-    X = df_penguin[['culmen_length_mm','culmen_depth_mm','flipper_length_mm','body_mass_g']]
-    y = df_penguin['species']
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.33, random_state=101)
-    forest = RandomForestClassifier(criterion='entropy', n_estimators=100, max_depth=None)
-    forest.fit(X_train, y_train) 
-    forest_preds = forest.predict(X_test) 
+    if (len(df_penguin) > 0):
+        conn_pgsql.close()
+        imputer = SimpleImputer(strategy='most_frequent')
+        df_penguin.iloc[:,:] = imputer.fit_transform(df_penguin)
+        features = ['culmen_length_mm', 'culmen_depth_mm'] 
+        X = df_penguin[['culmen_length_mm','culmen_depth_mm','flipper_length_mm','body_mass_g']].to_numpy()
+        y = df_penguin['species'].to_numpy()
+        X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.33, random_state=101)
+        model = RandomForestClassifier(criterion='entropy', n_estimators=100, max_depth=None)
+        model.fit(X_train, y_train) 
+        forest_preds = model.predict(X_test)
+        report = classification_report(y_test, forest_preds, output_dict=True)
+        df = pd.DataFrame(report).transpose()
+        filename = './model_penguin.pk'
+        pickle.dump(model, open(filename, 'wb'))
+        print('Success Trainning Model')
+        #return df, X_test, y_test
+    else:
+        print('No data Found!')
+        #return None, None, None
 
 if __name__ == "__main__":
     app.run(debug=True, host="0.0.0.0")
