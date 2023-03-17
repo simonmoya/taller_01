@@ -2,6 +2,8 @@ FROM  python:3.8
 
 ENV FLASK_APP="run.py"
 
+RUN mkdir -p /var/www/model
+
 WORKDIR /app
 
 ADD . /app

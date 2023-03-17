@@ -11,6 +11,41 @@ services:
             - POSTGRES_DB=data_iris
             - PGDATA=/var/lib/postgresql/data/pgdata
         volumes:
-             - /apps/data:/var/lib/postgresql/data/pgdata
+            - /apps/data:/var/lib/postgresql/data/pgdata
         ports:
           - "5432:5432"
+        networks:
+          - proxynet
+          
+    flask:
+        build: ./apirest/flask
+        container_name: apipenguin
+        restart: always
+        environment:
+            - APP_NAME=ApiPenguin
+            - DB_HOST=dbpeguin
+            - DB_NAME=data_iris
+            - DB_USER=postgres
+            - DB_PASSWORD=postgres
+        volumes:
+            - /apps/model:/var/www/model
+        expose:
+            - 8080
+        networks:
+            - proxynet
+
+    nginx:
+        build: ./apirest/nginx
+        container_name: nginxmicroservice
+        restart: always
+        ports:
+            - "9090:9090"
+        networks:
+            - proxynet
+        expose:
+            - "9090"
+
+
+networks:
+  proxynet:
+    name: custom_network
