@@ -51,7 +51,7 @@ def inference():
     if request.method != 'POST':
         return 'Only POST requests are allowed', 405
     
-    filename = 'model_penguin.pk'
+    filename = '/var/www/model/model_penguin.pk'
     model = pickle.load(open(filename, 'rb'))
     culmen_length_mm = request.json['culmen_length_mm']
     culmen_depth_mm = request.json['culmen_depth_mm']
