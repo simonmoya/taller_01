@@ -17,6 +17,12 @@ app.config['SECRET_KEY']="1234"
 CORS(app)
 
 def Connect_Pg():
+    host = os.environ.get('DB_HOST')
+    user = os.environ.get('DB_USER')
+    passwd = os.environ.get('DB_PASSWORD')
+    port = os.environ.get('DB_PORT')
+    db = os.environ.get('DB_NAME')
+    print('DataBase: ',db)
     with open('config_jav.json') as config_file:
         data = json.load(config_file)
 
