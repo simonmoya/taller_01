@@ -17,4 +17,5 @@ sqlalchemy==1.4.32
 scikit-learn==1.0.2
 psycopg2==2.9.3
 pickleshare==0.7.5
-cloudpickle==2.0.0 
+cloudpickle==2.0.0
+pickle==0.7.1
