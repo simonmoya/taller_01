@@ -40,7 +40,7 @@ def execute_query(query, engine):
     conn.close()
     
 #Genera la lista de registros de cada tabla de acuerdo a la tabla config_table                                
-@app.route("/load", methods=['POST'])
+@app.route("/load", methods=['GET', 'POST'])
 def LoadData():
     url="https://raw.githubusercontent.com/tensorflow/tfx/master/tfx/examples/penguin/data/labelled/penguins_processed.csv"
     df = pd.read_csv(url, lineterminator='\n')    
@@ -49,14 +49,14 @@ def LoadData():
     df.to_sql(tablename, engine, if_exists='append', index=False)
     print("Success Load Tables")
 
-@app.route("/delete", methods=['POST'])
+@app.route("/delete", methods=['GET', 'POST'])
 def DeleteData():
     engine = Connect_Pg()
     query = 'Truncate penguins_size'
     execute_query(query, engine)
     print("Success Truncate Tables")
 
-@app.route("/modeltrain", methods=['POST'])
+@app.route("/modeltrain", methods=['GET', 'POST'])
 def ModelTrain():
     engine = Connect_Pg()
     conn_pgsql = engine.connect()
