@@ -12,7 +12,9 @@ RUN pip install pip --upgrade
 
 RUN pip install -r requeriments.txt
 
-ENTRYPOINT ["uwsgi","--ini","app.ini"]
+EXPOSE 8081
+
+CMD [ "python", "run.py" ]
 
 
 
