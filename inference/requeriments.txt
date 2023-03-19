@@ -1,7 +1,7 @@
 click==7.1.2
 Flask==1.1.2
 itsdangerous==1.1.0
-Jinja2==2.11.2
+Jinja2==3.0.3
 MarkupSafe==1.1.1
 uWSGI==2.0.19.1
 Werkzeug==1.0.1
@@ -19,4 +19,6 @@ psycopg2==2.9.3
 pickleshare==0.7.5
 cloudpickle==2.0.0
 flasgger==0.9.5
-apispec==6.3.0 
+apispec==6.3.0
+marshmallow==3.19.0
+apispec-webframeworks==0.5.2
