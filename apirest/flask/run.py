@@ -4,6 +4,7 @@ from flask_cors import CORS
 import pandas as pd
 import os
 import json
+import pickle 
 
 from sqlalchemy import create_engine
 from sklearn.metrics import classification_report, confusion_matrix
@@ -81,7 +82,7 @@ def ModelTrain():
         forest_preds = model.predict(X_test)
         report = classification_report(y_test, forest_preds, output_dict=True)
         df = pd.DataFrame(report).transpose()
-        filename = './model_penguin.pk'
+        filename = '/var/www/model/model_penguin.pk'
         pickle.dump(model, open(filename, 'wb'))
         print('Success Trainning Model')
         resp=make_response("Success Trainning Model")
