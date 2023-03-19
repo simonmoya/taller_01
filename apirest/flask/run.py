@@ -58,6 +58,9 @@ def DeleteData():
     query = 'Truncate penguins_size'
     execute_query(query, engine)
     print("Success Truncate Tables")
+    resp=make_response("Success Truncate Tables")
+    resp.headers['Access-Control-Allow-Origin'] = '*'
+    return resp    
 
 @app.route("/modeltrain", methods=['GET', 'POST'])
 def ModelTrain():
@@ -81,10 +84,14 @@ def ModelTrain():
         filename = './model_penguin.pk'
         pickle.dump(model, open(filename, 'wb'))
         print('Success Trainning Model')
+        resp=make_response("Success Trainning Model")
         #return df, X_test, y_test
     else:
         print('No data Found!')
+        resp=make_response("No data Found!")        
         #return None, None, None
+    resp.headers['Access-Control-Allow-Origin'] = '*'
+    return resp    
 
 if __name__ == "__main__":
     app.run(debug=True, host="0.0.0.0")
