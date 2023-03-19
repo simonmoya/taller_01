@@ -11,7 +11,7 @@ services:
             - POSTGRES_DB=data_iris
             - PGDATA=/var/lib/postgresql/data/pgdata
         volumes:
-            - /apps/data:/var/lib/postgresql/data/pgdata
+            - /home/estudiante/apps/data:/var/lib/postgresql/data/pgdata
         ports:
           - "5432:5432"
         networks:
@@ -29,7 +29,7 @@ services:
             - DB_PASSWORD=postgres
             - DB_PORT=5432
         volumes:
-            - /apps/model:/var/www/model
+            - /home/estudiante/apps/model:/var/www/model
         expose:
             - 8080
         networks:
