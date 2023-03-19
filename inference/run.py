@@ -50,6 +50,7 @@ def inference():
               type: string
               description: Especie de pingüino predicha
     """
+    print("Start Inference Process", str(request.method))
     if request.method != 'POST':
         return 'Only POST requests are allowed', 405
     
