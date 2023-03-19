@@ -54,6 +54,8 @@ services:
           - APP_NAME=InferencePenguin
         volumes:
           - /home/estudiante/apps/model:/var/www/model
+        ports:
+            - "8081:8081"
         expose:
             - 8081
 
