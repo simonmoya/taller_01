@@ -50,12 +50,12 @@ services:
         build: ./inference
         container_name: inferencepenguin
         restart: always
-        ports:
-          - "8081:8081"
-        volumes:
-          - /home/estudiante/apps/model:/var/www/model
         environment:
           - APP_NAME=InferencePenguin
+        volumes:
+          - /home/estudiante/apps/model:/var/www/model
+        expose:
+            - 8081
 
 networks:
   proxynet:
