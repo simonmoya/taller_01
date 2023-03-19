@@ -1,9 +1,0 @@
-{
-    "pgsql":{
-        "host":"10.43.102.114",
-        "user":"postgres",
-        "passwd":"postgres",
-        "db":"data_iris",
-		"port":"5432"
-    }
-}

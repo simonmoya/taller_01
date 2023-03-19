@@ -24,11 +24,8 @@ def Connect_Pg():
     port = os.environ.get('DB_PORT')
     db = os.environ.get('DB_NAME')
     print('DataBase: ',db)
-    with open('config_jav.json') as config_file:
-        data = json.load(config_file)
 
-    engine = create_engine('postgresql://'+data['pgsql']['user']+':'+data['pgsql']['passwd']+
-          "@"+data['pgsql']['host']+":"+data['pgsql']['port']+"/"+data['pgsql']['db'])
+    engine = create_engine('postgresql://'+user+':'+passwd+"@"+host+":"+port+"/"+db)
     
     return engine
 
