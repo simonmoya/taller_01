@@ -48,6 +48,9 @@ def LoadData():
     tablename = 'penguins_size'
     df.to_sql(tablename, engine, if_exists='append', index=False)
     print("Success Load Tables")
+    resp=make_response("Success Load Tables")
+    resp.headers['Access-Control-Allow-Origin'] = '*'
+    return resp    
 
 @app.route("/delete", methods=['GET', 'POST'])
 def DeleteData():
