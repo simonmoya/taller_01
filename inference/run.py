@@ -5,8 +5,6 @@ import os
 import pickle 
 import json
 
-from sklearn.metrics import classification_report, confusion_matrix
-from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestClassifier
 from flasgger import Swagger
 from flasgger.utils import swag_from
@@ -17,7 +15,6 @@ from apispec_webframeworks.flask import FlaskPlugin
 app = Flask(__name__)
 app.config['SECRET_KEY']="1234"
 CORS(app)
-swagger = Swagger(app)
    
 @app.route("/inference", methods=['GET', 'POST'])
 def inference():
