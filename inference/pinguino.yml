@@ -8,7 +8,7 @@ produces:
 parameters:
 - in: "body"
   name: "body"
-  description: "Predice la especie de pingüino con base a sus características"
+  description: "Predice la especie de pingüino en base a sus características"
   required: true
   schema:
     type: "object"
@@ -17,18 +17,22 @@ parameters:
         type: number
         description: Longitud del pico en mm
         example: 39.1
+        x-order: 1
       culmen_depth_mm:
         type: number
         description: Profundidad del pico en mm
         example: 18.7
+        x-order: 2
       flipper_length_mm:
         type: number
         description: Longitud de la aleta en mm
         example: 181.0
+        x-order: 3
       body_mass_g:
         type: number
         description: Masa del pingüino en g
         example: 3750.0
+        x-order: 4
 
 responses:
   405:
