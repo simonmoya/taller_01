@@ -17,6 +17,7 @@ app.config['SECRET_KEY']="1234"
 CORS(app)
    
 @app.route("/inference", methods=['GET', 'POST'])
+@swag_from('pinguino.yml')
 def inference():
     """
     Predicción de la especie de pingüino en base a sus características

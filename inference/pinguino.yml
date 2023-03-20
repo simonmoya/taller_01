@@ -1,0 +1,45 @@
+swagger: '2.0'
+info:
+  title: Predicción de especie de pingüino
+  description: Predice la especie de pingüino en base a sus características
+  version: '1.0'
+
+paths:
+  /inference:
+    post:
+      summary: Predice la especie de pingüino
+      consumes:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          required: true
+          schema:
+            type: object
+            properties:
+              culmen_length_mm:
+                type: number
+                description: Longitud del pico en mm
+                example: 39.1
+              culmen_depth_mm:
+                type: number
+                description: Profundidad del pico en mm
+                example: 18.7
+              flipper_length_mm:
+                type: number
+                description: Longitud de la aleta en mm
+                example: 181.0
+              body_mass_g:
+                type: number
+                description: Masa del pingüino en g
+                example: 3750.0
+      responses:
+        200:
+          description: Especie de pingüino predicha
+          schema:
+            type: object
+            properties:
+              species:
+                type: string
+                description: Especie de pingüino predicha
+                example: Adelie
