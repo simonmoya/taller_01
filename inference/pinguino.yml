@@ -17,21 +17,25 @@ parameters:
         type: number
         description: Longitud del pico en mm
         example: 39.1
+        order: 1
         x-order: 1
       culmen_depth_mm:
         type: number
         description: Profundidad del pico en mm
         example: 18.7
+        order: 2
         x-order: 2
       flipper_length_mm:
         type: number
         description: Longitud de la aleta en mm
         example: 181.0
+        order: 3
         x-order: 3
       body_mass_g:
         type: number
         description: Masa del pingüino en g
         example: 3750.0
+        order: 4
         x-order: 4
 
 responses:
