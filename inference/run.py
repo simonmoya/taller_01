@@ -89,6 +89,14 @@ def inference():
     resp = make_response(result, 200)
     resp.headers['Access-Control-Allow-Origin'] = '*'
     return resp
+
+@app.route('/swagger')
+def apidocs():
+    with open('pinguino.yml') as f:
+        swag_data = yaml.load(f, Loader=yaml.FullLoader)
+    ordered_properties = sorted(swag_data['parameters'][0]['schema']['properties'].items(), key=lambda x: x[1].get('order', 0))
+    swag_data['parameters'][0]['schema']['properties'] = dict(ordered_properties)
+    return jsonify(swag_data)
         
 if __name__ == "__main__":
     app.run(debug=True, host="0.0.0.0", port=8081)
