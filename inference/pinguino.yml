@@ -1,6 +1,6 @@
 swagger: '2.0'
-summary: "Add 2 Numbers"
-description: "This is a simple API which returns the sum of 2 numbers"
+summary: "Predicción de especie de pingüino"
+description: "Esta es un API que predice la especie de pingüino"
 consumes:
 - "application/json"
 produces:
@@ -8,7 +8,7 @@ produces:
 parameters:
 - in: "body"
   name: "body"
-  description: "Accepts a input dictionary of inputs x1 and x2"
+  description: "Predice la especie de pingüino con base a sus características"
   required: true
   schema:
     type: "object"
