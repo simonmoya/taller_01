@@ -16,13 +16,13 @@ parameters:
       culmen_length_mm:
         type: number
         description: Longitud del pico en mm
-        example: 0.95238095
+        example: 0.09090909
         order: 1
         x-order: 1
       culmen_depth_mm:
         type: number
         description: Profundidad del pico en mm
-        example: 0.09090909
+        example: 0.95238095
         order: 2
         x-order: 2
       flipper_length_mm:
